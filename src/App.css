@@ -1,0 +1,154 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+ 
+ 
+  /* background: #004374; */
+  /* background: #E5E5E5; */
+ 
+body {
+   background: #E5E5E5;
+   color: #3d3d3d;
+   font-family: "Nunito", sans-serif;
+}
+
+.App {
+    margin-top: 123px
+}
+ 
+#main-header {
+    background: #004374;
+    color: #ffffff;
+    padding: 30px 0;
+    margin-bottom: 20px;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+}
+
+.main-nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.heading-btn-wrapper {
+    margin-bottom: 20px;
+}
+
+.btn, .heading-btn-wrapper button {
+    min-width: 80px;
+    text-align: left;
+    padding: 15px;
+    border: none;
+    margin-right: 10px;
+    background-color: #ffffff;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.heading-btn-wrapper button.active{
+    background: #004374;
+    color: #ffffff;
+}
+
+.todo-item {
+    text-align: left;
+    width: 100%;
+    margin-bottom: 20px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    border-radius: 5px;
+}
+
+.todo-heading, .todo-description {
+    display: flex;
+    padding: 15px;
+}
+
+.todo-heading {
+    text-transform: capitalize;
+    cursor: pointer;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+}
+
+.todo-index {
+    width: 40px;
+}
+
+.todo-title {
+    width: calc(100% - 60px);
+    display: block;
+    text-overflow: ellipsis;
+}
+
+.todo-priority {
+    width: 20px;
+}
+
+.todo-description {
+   padding: 20px 40px 20px 60px;
+}
+
+.todo-done .todo-heading {
+    background: #004374;
+    color: #ffffff;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+.modal {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: #00000099;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    width: 450px;
+    background: #ffffff;
+    border-radius: 5px;
+}
+.modal-header {
+    padding: 10px 15px;
+    border-bottom: 1px solid #bbb;
+}
+
+.modal-title {
+    text-transform: capitalize;
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+.modal-body {
+    padding: 10px 15px;
+}
+
+.modal-footer {
+    padding: 7px 15px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    border-top: 1px solid #bbbbbb;
+}
+
+.input {
+    width: 100%;
+    border: 1px solid #bbbbbb;
+    padding: 12px;
+    resize: none;
+    margin: 8px 0;
+}
