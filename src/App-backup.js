@@ -25,7 +25,7 @@ function App() {
   const [showCreateModal, setShowCreateModal] = useState(false);
   
   const setView = (view, search) => {
-    
+    console.log(search);
     // if allTodos is null default and empty array
     let todos = allTodos || [];
     switch (view) {
@@ -78,13 +78,13 @@ function App() {
   []
   )
 
-  useEffect(() => {
-    setView(currView, search)
-  }, 
-    //Dependency (what changes should trigger a rerun)
-    // eslint-disable-next-line
-    [search, currView, allTodos]
-  )
+  // useEffect(() => {
+  //   setView(currView, search)
+  // }, 
+  //   //Dependency (what changes should trigger a rerun)
+  //   // eslint-disable-next-line
+  //   [search, currView, allTodos]
+  // )
 
   const addTodo = (todo) => {
     setAllTodos([todo, ...allTodos]);
@@ -107,19 +107,19 @@ function App() {
         <div className="heading-btn-wrapper">
           {/* approach 1 using tenary operator to render */}
           {currView === "all"
-            ? <button className="active" onClick={() => { setCurrView("all") }}>All</button>
-            : <button className="" onClick={() => setCurrView("all")}>All</button>
+            ? <button className="active" onClick={() => { setView("all", search) }}>All</button>
+            : <button className="" onClick={() => setView("all", search)}>All</button>
           }
 
           {/* approach 2 using class */}
-          <button className={currView === "done" ? "active" : ""} onClick={() => setCurrView("done")}>Done</button>
+          <button className={currView === "done" ? "active" : ""} onClick={() => setView("done", search)}>Done</button>
 
           {/* approach 3 using conditionals */}
-          {currView === "pending" && <button className="active" onClick={() => setCurrView("pending")}>Pending</button>}
-          {currView !== "pending" && <button className="" onClick={() => setCurrView("pending")}>Pending</button>}
+          {currView === "pending" && <button className="active" onClick={() => setView("pending", search)}>Pending</button>}
+          {currView !== "pending" && <button className="" onClick={() => setView("pending", search)}>Pending</button>}
         </div>
 
-        <input type="text" className="input" value={search} onChange={e => setSearch(e.target.value)}/>
+        <input type="text" className="input" onChange={e => setView(currView, e.target.value)}/>
 
         {/*todos = null or undefined and if todos = [] */}
         {/** && = and  || = or */}

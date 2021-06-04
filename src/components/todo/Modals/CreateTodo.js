@@ -8,8 +8,14 @@ export default function CreateTodo({ show, addTodo }) {
     const [priority, setPriority] = useState("");
     const [description, setDescription] = useState("");
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
 
     const saveTodo = () => {
+        // a quick validatio
+        if(!title || !priority) {
+            setError("please set title and priority");
+            return;
+        }
         //set loading true
         setLoading(true);
         fetch(
@@ -33,6 +39,7 @@ export default function CreateTodo({ show, addTodo }) {
 
             //close the modal
             show(false);
+            alert("Todo Saved");
         })
         .catch(err => {
             console.err(err);
@@ -50,11 +57,16 @@ export default function CreateTodo({ show, addTodo }) {
             close={() => show(false)}
             loading={loading}
         >
-           
-            <input value={title} onChange={e => setTitle(e.target.value)} placeholder="Title" className="input" type="text" />
+            {error && <p style={{ color: "red", backgroundColor: "pink",  padding: "20px" }}>{error}</p>}
+            <input 
+                value={title} 
+                onChange={e => setTitle(e.target.value)} 
+                placeholder="Title" 
+                className="input" 
+                type="text" 
+            />
             <input value={priority} onChange={e => setPriority(e.target.value)} placeholder="Priority" className="input" type="number" min="0" step="1" />
             <textarea value={description} onChange={e => setDescription(e.target.value)} placeholder="Description" rows="4" className="input"></textarea>
-
         </Modal>
     )
 }

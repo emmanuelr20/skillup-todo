@@ -91,7 +91,7 @@ body {
 }
 
 .todo-priority {
-    width: 20px;
+    /* width: 20px; */
 }
 
 .todo-description {
