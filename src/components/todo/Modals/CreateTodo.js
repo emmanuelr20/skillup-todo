@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Modal from '../../utils/Modal'
 import config from '../../../config';
+import Alert from '../../../utils/Alert';
 
 export default function CreateTodo({ show, addTodo }) {
 
@@ -39,12 +40,16 @@ export default function CreateTodo({ show, addTodo }) {
 
             //close the modal
             show(false);
-            alert("Todo Saved");
+            setTitle("");
+            setPriority("");
+            setDescription("");
+
+            Alert.success("Todo saved successfully !");
         })
         .catch(err => {
             console.err(err);
-            alert("an error occurred, please try again");
             setLoading(false);
+            Alert.danger("An error occurred, please try again !");
         })
     }
 

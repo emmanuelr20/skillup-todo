@@ -5,6 +5,8 @@ import CreateTodo from './components/todo/Modals/CreateTodo';
 import Button from './components/utils/Button'; 
 import TodoLoader from './components/loaders/TodoLoader';
 import config from './config';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() { 
   // todos;
@@ -58,6 +60,7 @@ function App() {
     //set the finally filtered list to the current viewed list
     setTodos(todos);
     setCurrView(view);
+
   }
 
   //loads
@@ -79,8 +82,8 @@ function App() {
   )
 
   useEffect(() => {
-    setView(currView, search)
-  }, 
+      setView(currView, search)
+    }, 
     //Dependency (what changes should trigger a rerun)
     // eslint-disable-next-line
     [search, currView, allTodos]
@@ -99,10 +102,12 @@ function App() {
           <Button onClick={() => setShowCreateModal(true)}> Add Todo </Button>
         </div>
       </div>
-      { showCreateModal && <CreateTodo 
-        show={setShowCreateModal}
-        addTodo={addTodo}
-      />}
+      <div style={{ display: showCreateModal? "block": "none" }}> 
+        <CreateTodo 
+          show={setShowCreateModal}
+          addTodo={addTodo}
+        />
+      </div>
       <div className="container">
         <div className="heading-btn-wrapper">
           {/* approach 1 using tenary operator to render */}
@@ -132,6 +137,7 @@ function App() {
           )
         }
       </div>
+      <ToastContainer />
     </div>
   );
 }
