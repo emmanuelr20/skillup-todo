@@ -7,6 +7,10 @@ import TodoLoader from './components/loaders/TodoLoader';
 import config from './config';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import useHeaderSetter from './hooks/useHeaderSetter';
+
+import HeaderContext from './contexts/HeaderContext';
+
 
 function App() { 
   // todos;
@@ -83,6 +87,7 @@ function App() {
 
   useEffect(() => {
       setView(currView, search)
+      // document.getElementById("app-title").innerHTML = `Todo | ${currView}`;
     }, 
     //Dependency (what changes should trigger a rerun)
     // eslint-disable-next-line
@@ -92,10 +97,20 @@ function App() {
   const addTodo = (todo) => {
     setAllTodos([todo, ...allTodos]);
   }
+  const Headers = useHeaderSetter();
+
+  const data = {
+    currView,
+    allTodos,
+    setAllTodos,
+    setView,
+  }
+
+
 
   return (
     <div className="App">
-      
+      <HeaderContext.Provider value={data}>
       <div id="main-header">
         <div className="container main-nav">
           <h1>Todos </h1>
@@ -137,6 +152,7 @@ function App() {
           )
         }
       </div>
+      </HeaderContext.Provider>
       <ToastContainer />
     </div>
   );

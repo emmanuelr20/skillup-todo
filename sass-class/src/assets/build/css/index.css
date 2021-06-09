@@ -1,0 +1,65 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+.card {
+  padding: 300px 20px;
+  background: red;
+}
+.card-primary {
+  background-color: #3bb75e;
+}
+
+nav {
+  position: fixed;
+  margin-bottom: 50px;
+  background: #f1f1f1;
+  left: 0;
+  right: 0;
+}
+nav header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+}
+nav header .menu-btn {
+  display: none;
+}
+nav header ul li {
+  list-style: none;
+  display: inline;
+  margin-left: 1.4rem;
+}
+nav header .menu {
+  display: block;
+}
+@media (max-width: 768px) {
+  nav header {
+    display: block;
+  }
+  nav header .brand {
+    display: flex;
+    justify-content: space-between;
+  }
+  nav header .menu-btn {
+    display: inline;
+  }
+  nav header .menu {
+    display: none;
+  }
+  nav header .menu.active {
+    display: block;
+  }
+  nav header ul li {
+    display: block;
+    margin-left: 0;
+  }
+  nav header ul li a {
+    color: red;
+  }
+}
+
+/*# sourceMappingURL=index.css.map */

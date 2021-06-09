@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import Modal from '../../utils/Modal'
 import config from '../../../config';
 import Alert from '../../../utils/Alert';
+import HeaderContext from '../../../contexts/HeaderContext';
 
 export default function CreateTodo({ show, addTodo }) {
 
@@ -10,6 +11,10 @@ export default function CreateTodo({ show, addTodo }) {
     const [description, setDescription] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
+
+    const headerData = useContext(HeaderContext);
+
+    console.log(headerData);
 
     const saveTodo = () => {
         // a quick validatio
@@ -53,9 +58,10 @@ export default function CreateTodo({ show, addTodo }) {
         })
     }
 
+
     return (
         <Modal
-            title="Create Todo"
+            title={`Create Todo ${headerData.currView}`}
             actionText="Create"
             closeText="Close"
             action={saveTodo}

@@ -4,8 +4,10 @@ const toastConfig = {
     position: toast.POSITION.TOP_RIGHT
 }
 
-export default {
+const notify =  {
     success: (msg) => toast.success(msg, toastConfig),
     info: (msg) => toast.info(msg, toastConfig),
     danger: (msg) => toast.error(msg, toastConfig)
 }
+
+export default notify;
