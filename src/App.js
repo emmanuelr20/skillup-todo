@@ -58,7 +58,10 @@ function App() {
 
     //search filter
     if(search) {
-      todos = todos.filter(todo => todo.title.toLowerCase().includes(search.toLowerCase()))
+      todos = todos.filter(todo => 
+        todo.title.toLowerCase().includes(search.toLowerCase()) ||
+        todo.description.toLowerCase().includes(search.toLowerCase())
+      )
     }
     
     //set the finally filtered list to the current viewed list
