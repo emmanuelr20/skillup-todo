@@ -7,7 +7,7 @@ import TodoLoader from './components/loaders/TodoLoader';
 import config from './config';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import useHeaderSetter from './hooks/useHeaderSetter';
+// import useHeaderSetter from './hooks/useHeaderSetter';
 
 import HeaderContext from './contexts/HeaderContext';
 
@@ -100,7 +100,7 @@ function App() {
   const addTodo = (todo) => {
     setAllTodos([todo, ...allTodos]);
   }
-  const Headers = useHeaderSetter();
+  // const Headers = useHeaderSetter();
 
   const data = {
     currView,
@@ -109,10 +109,19 @@ function App() {
     setView,
   }
 
-
+  const scrollToTop = e => {
+    e.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
 
   return (
     <div className="App">
+
+      <button onClick={scrollToTop} className="app-to-top">Top</button>
+
       <HeaderContext.Provider value={data}>
       <div id="main-header">
         <div className="container main-nav">
