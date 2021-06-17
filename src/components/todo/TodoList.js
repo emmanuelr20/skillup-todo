@@ -19,30 +19,36 @@ export default function TodoList({ todos, group, perPage = 10 }) {
 
     useEffect(() => {
         goToPage();
+        // eslint-disable-next-line
     }, [todos]);
 
-    const loadNextPage = () => {
-        if (loading) return;
-        setLoading(true);
-
-
-        const currentPostion = window.pageYOffset + window.innerHeight;
-        const pageLength = document.body.scrollHeight;
-
-        if (pageLength <= currentPostion) {
-            goToPage(page + 1);
-
-            console.log(page)
-            setTimeout(() => {
-                setLoading(false);
-            }, 500);
-        }
-    }
-
     useEffect(() => {
+        const handleScroll = (e) => {
+            if (loading) return;
 
-        window.addEventListener('scroll',)
-    }, [])
+            const currentPostion = window.pageYOffset + window.innerHeight;
+            const pageLength = document.body.scrollHeight;
+
+
+            if (pageLength <= currentPostion) {
+                setLoading(true);
+                console.log(page)
+                goToPage(page + 1);
+
+
+                setTimeout(() => {
+                    e.target.removeEventListener('scroll', handleScroll);
+                    setLoading(false);
+                }, 500);
+            }
+        }
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        }
+        // eslint-disable-next-line
+    }, [loading, page])
 
     return (
         <div className="todo-list">
