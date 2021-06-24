@@ -5,6 +5,13 @@ import Button from '../../components/utils/Button'
 
 export default function Login() {
 
+    // const defaultState = {
+    //     email: "",
+    //     password: ""
+    // }
+
+    // const [formData, useFormData] = useState(defaultState);
+
 
     return (
         <Card title="Login">

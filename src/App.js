@@ -5,14 +5,15 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // import useHeaderSetter from './hooks/useHeaderSetter';
 
-import HeaderContext from './contexts/HeaderContext';
+// import HeaderContext from './contexts/HeaderContext';
 import Header from './components/layouts/Header';
 import Todos from './pages/Todos';
 
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  Redirect
 } from "react-router-dom";
 import AuthRoute from './router/components/AuthRoute';
 import GuestRoutes from './router/GuestRoutes';
@@ -43,12 +44,12 @@ function App() {
   )
   // const Headers = useHeaderSetter();
 
-  const data = {
-    // currView,
-    allTodos,
-    setAllTodos,
-    // setView,
-  }
+  // const data = {
+  //   // currView,
+  //   allTodos,
+  //   setAllTodos,
+  //   // setView,
+  // }
 
   const scrollToTop = e => {
     e.preventDefault();
@@ -76,6 +77,10 @@ function App() {
               loading={todoLoading}
             />
           </AuthRoute>
+
+          <Route exact path="/">
+            <Redirect to="/auth/login" />
+          </Route>
 
           <Route path="*">
             <div>Page Not Found</div>
