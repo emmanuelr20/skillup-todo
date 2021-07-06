@@ -17,6 +17,7 @@ export default function Register() {
     }
 
     const [formData, setFormData] = useState(defaultState);
+    const [errors, setErrors] = useState(null);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -35,18 +36,23 @@ export default function Register() {
                 },
                 body: JSON.stringify(formData)
             });
-
             let data = await response.json();
+
+            if (response.status !== 200) {
+                console.log(data);
+                Alert.danger(data.message);
+                if (data.errors) setErrors(data.errors)
+                return;
+            }
 
             // store in the case of a refresh or for future use
             localStorage.setItem("user-authentication", JSON.stringify(data));
 
             //TODO global state or context;
-
             console.log(data);
         } catch (error) {
             console.log(error);
-            Alert.error(error.message);
+            Alert.danger(error.message);
         }
 
     }
@@ -54,9 +60,9 @@ export default function Register() {
     return (
         <Card title="Register">
             <form onSubmit={register}>
-                <Input onChange={handleChange} name="name" label="Name" placeholder="Name" type="text" />
-                <Input onChange={handleChange} name="email" label="Email" placeholder="Email" type="email" />
-                <Input onChange={handleChange} name="password" label="Password" placeholder="password" type="password" />
+                <Input error={errors && errors.name && errors.name[0]} onChange={handleChange} name="name" label="Name" placeholder="Name" type="text" />
+                <Input error={errors && errors.email && errors.email[0]} onChange={handleChange} name="email" label="Email" placeholder="Email" type="email" />
+                <Input error={errors && errors.password && errors.password[0]} onChange={handleChange} name="password" label="Password" placeholder="password" type="password" />
                 <Input onChange={handleChange} name="password_confirmation" label="Confirm Password " placeholder="password" type="password" />
 
                 <Button type="submit">Submit</Button>

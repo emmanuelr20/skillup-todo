@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 
 import { Link } from "react-router-dom";
+import { useAppContext } from '../../contexts/Prodiver/AppContextProdiver';
 
 import CreateTodo from '../todo/Modals/CreateTodo';
 import Button from '../utils/Button';
 
 
 export default function Header({ setAllTodos }) {
-
+    const { user, logout } = useAppContext();
     const [showCreateModal, setShowCreateModal] = useState(false);
 
-    const isAuthenticated = false;
+    const isAuthenticated = user;
 
     return (
         <div>
@@ -19,7 +20,11 @@ export default function Header({ setAllTodos }) {
                     <h1>Todos </h1>
                     {
                         isAuthenticated ?
-                            <span><Button onClick={() => setShowCreateModal(true)}> Add Todo </Button></span> :
+                            <span>
+                                <Button onClick={() => setShowCreateModal(true)}> Add Todo </Button>
+                                <Button onClick={logout}> Logout </Button>
+                            </span>
+                            :
                             <span>
                                 <Link to="/auth/login">
                                     <Button > Login</Button>

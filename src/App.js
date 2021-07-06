@@ -17,7 +17,7 @@ import {
 } from "react-router-dom";
 import AuthRoute from './router/components/AuthRoute';
 import GuestRoutes from './router/GuestRoutes';
-
+import AppContextProdiver, { AppContext, useAppContext } from './contexts/Prodiver/AppContextProdiver';
 
 function App() {
   // todos;
@@ -25,6 +25,8 @@ function App() {
 
   //todoLoading
   const [todoLoading, setTodoLoading] = useState(true);
+
+  const { login } = useAppContext();
 
   //loads
   useEffect(() => {
@@ -51,6 +53,15 @@ function App() {
   //   // setView,
   // }
 
+
+  useEffect(() => {
+    let data = localStorage.getItem("user-authentication");
+    if (data) {
+      data = JSON.parse(data);
+      login(data);
+    }
+  }, [])
+
   const scrollToTop = e => {
     e.preventDefault();
     window.scrollTo({
@@ -59,38 +70,65 @@ function App() {
     });
   }
 
+
   return (
     <Router>
       <div className="App">
+        <AppContextProdiver>
+          <button onClick={scrollToTop} className="app-to-top">Top</button>
+          <Header
+            setAllTodos={setAllTodos}
+          />
+          <Router />
 
-        <button onClick={scrollToTop} className="app-to-top">Top</button>
-        <Header
-          setAllTodos={setAllTodos}
-        />
 
-        <Switch>
-          <GuestRoutes path="/auth" />
-          <AuthRoute exact path="/todos">
-            <Todos
-              allTodos={allTodos}
-              setAllTodos={setAllTodos}
-              loading={todoLoading}
-            />
-          </AuthRoute>
-
-          <Route exact path="/">
-            <Redirect to="/auth/login" />
-          </Route>
-
-          <Route path="*">
-            <div>Page Not Found</div>
-          </Route>
-        </Switch>
-
+        </AppContextProdiver>
         <ToastContainer />
       </div>
     </Router>
   );
+}
+
+function Router() {
+  const { user, authLoading } = useAppContext();
+  return authLoading
+    ? <PageLoader />
+    : <Switch>
+      <GuestRoute to="/auth/login" component={<Login />} />
+      <GuestRoute to="/auth/register" component={<Register />} />
+      <AuthRoute to="/dashboard" useLayout={true} component={<Register />} />
+
+    </Switch>
+}
+
+function GuestRoute({ to, component, redirect }) {
+  const { user } = useAppContext();
+  return <Route to={to} >
+    {!user ? component : <Redirect to={redirect || "/dashboard"} />}
+  </Route>
+}
+
+function AuthRoute({ to, component, useLayout, redirect }) {
+  const { user } = useAppContext();
+  return <Route to={to} >
+    {user
+      ? useLayout
+        ? <DashboardLayout>{component}</DashboardLayout>
+        : component
+      : <Redirect to={redirect || "/login"} />}
+  </Route>
+}
+
+
+function DashboardLayout({ children }) {
+
+  return <section>
+    <header></header>
+    <sidebar></sidebar>
+    <div className="main-content">
+      {children}
+    </div>
+  </section>
 }
 
 export default App;
